@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jagat Education Center | Bimbel & Kursus Bahasa Inggris</title>
+    <meta name="description" content="Bimbel dan Kursus Bahasa Inggris terbaik. Daftar sekarang via WhatsApp.">
+    
+    <!-- Preconnect untuk font agar lebih cepat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #2563EB; /* Royal Blue */
+            --primary-dark: #1E40AF;
+            --accent: #F59E0B; /* Amber/Gold */
+            --dark: #0F172A;
+            --light: #F8FAFC;
+            --gray: #64748B;
+            --wa-green: #25D366;
+            --nav-height: 70px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: var(--nav-height); /* Space for bottom nav on mobile */
+        }
+
+        /* --- UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 14px 28px; border-radius: 50px; font-weight: 700; text-decoration: none;
+            transition: var(--transition); cursor: pointer; border: none; width: 100%;
+            font-size: 1rem;
+        }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        .btn-primary:active { transform: scale(0.98); background: var(--primary-dark); }
+        .btn-wa { background: var(--wa-green); color: white; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+
+        /* --- SECTIONS (SPA STYLE) --- */
+        section { min-height: 100vh; padding: 80px 0 100px; display: flex; flex-direction: column; justify-content: center; }
+        
+        /* HERO */
+        #home { 
+            background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
+            text-align: center;
+        }
+        .hero-badge { 
+            display: inline-block; padding: 6px 16px; background: #DBEAFE; color: var(--primary); 
+            border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; 
+        }
+        .hero-title { font-size: 2.5rem; line-height: 1.2; margin-bottom: 16px; color: var(--dark); }
+        .hero-title span { color: var(--primary); }
+        .hero-subtitle { font-size: 1.1rem; color: var(--gray); margin-bottom: 32px; }
+        
+        /* PROGRAMS */
+        .program-card {
+            background: white; border-radius: 20px; padding: 30px; margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #E2E8F0;
+            transition: var(--transition);
+        }
+        .program-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .program-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; }
+        .program-desc { font-size: 0.95rem; color: var(--gray); margin-bottom: 20px; }
+
+        /* FORM */
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; color: var(--dark); }
+        .form-input, .form-select {
+            width: 100%; padding: 14px 16px; border-radius: 12px; border: 1.5px solid #CBD5E1;
+            font-size: 1rem; font-family: inherit; background: white; transition: var(--transition);
+        }
+        .form-input:focus, .form-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+
+        /* --- MOBILE BOTTOM NAVIGATION --- */
+        .mobile-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-height);
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            border-top: 1px solid #E2E8F0; display: flex; justify-content: space-around; align-items: center;
+            z-index: 1000; padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            text-decoration: none; color: var(--gray); font-size: 0.7rem; font-weight: 600;
+            transition: var(--transition); padding: 8px; flex: 1;
+        }
+        .nav-item.active { color: var(--primary); }
+        .nav-icon { font-size: 1.4rem; line-height: 1; }
+
+        /* --- FLOATING WA BUTTON (TANYA2) --- */
+        .float-wa {
+            position: fixed; bottom: calc(var(--nav-height) + 20px); right: 20px;
+            width: 60px; height: 60px; background: var(--wa-green); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: white;
+            font-size: 1.8rem; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+            z-index: 999; text-decoration: none; animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+        /* --- DESKTOP ADJUSTMENTS --- */
+        @media (min-width: 768px) {
+            body { padding-bottom: 0; }
+            .mobile-nav { display: none; }
+            .float-wa { bottom: 30px; right: 30px; width: 70px; height: 70px; font-size: 2.2rem; }
+            section { padding: 100px 0; }
+            .hero-title { font-size: 3.5rem; }
+            .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+            .program-card { margin-bottom: 0; }
+            .form-container { max-width: 500px; margin: 0 auto; }
+            
+            /* Desktop Top Nav */
+            .desktop-nav {
+                position: fixed; top: 0; left: 0; right: 0; height: 70px;
+                background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+                border-bottom: 1px solid #E2E8F0; z-index: 1000;
+                display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+            }
+            .desktop-nav .logo { font-weight: 800; font-size: 1.3rem; color: var(--primary); }
+            .desktop-nav .nav-links { display: flex; gap: 32px; }
+            .desktop-nav .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.95rem; transition: var(--transition); }
+            .desktop-nav .nav-links a:hover, .desktop-nav .nav-links a.active { color: var(--primary); }
+            body { padding-top: 70px; }
+        }
+        @media (max-width: 767px) {
+            .desktop-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DESKTOP NAV -->
+    <nav class="desktop-nav">
+        <div class="logo">🎓 Jagat Education</div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link active" data-target="home">Beranda</a>
+            <a href="#programs" class="nav-link" data-target="programs">Program</a>
+            <a href="#register" class="nav-link" data-target="register">Daftar</a>
+        </div>
+        <a href="https://wa.me/6285335913758?text=Halo%20Jagat%20Education,%20saya%20ingin%20bertanya%20tentang%20program%20kursus." target="_blank" class="btn btn-wa" style="width:auto; padding: 10px 24px; font-size:0.9rem;">💬 Tanya via WA</a>
+    </nav>
+
+    <!-- SECTION: HOME -->
+    <section id="home">
+        <div class="container fade-in">
+            <span class="hero-badge">✨ Pendaftaran Dibuka!</span>
+            <h1 class="hero-title">Raih Masa Depan<br><span>Cemerlang</span> Bersama Kami</h1>
+            <p class="hero-subtitle">Bimbel & Kursus Bahasa Inggris dengan metode modern, interaktif, dan terbukti efektif untuk semua jenjang.</p>
+            <div style="display:flex; flex-direction:column; gap:12px; max-width:400px; margin:0 auto;">
+                <a href="#register" class="btn btn-primary nav-trigger" data-target="register">🚀 Daftar Sekarang</a>
+                <a href="#programs" class="btn btn-outline nav-trigger" data-target="programs">Lihat Program</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: PROGRAMS -->
+    <section id="programs" style="background: white;">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h2 style="font-size:2rem; margin-bottom:10px;">Program Unggulan</h2>
+                <p style="color:var(--gray);">Pilih program yang sesuai dengan kebutuhanmu</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card fade-in">
+                    <span class="program-icon">📚</span>
+                    <h3 class="program-title">Bimbel Sekolah</h3>
+                    <p class="program-desc">SD, SMP, SMA. Pendampingan belajar intensif, persiapan ujian, dan pemahaman konsep mendalam.</p>
+                    <a href="#register" class="btn btn-outline nav-trigger" data-target="register" style="padding:10px 20px; font-size:0.9rem;">Daftar Bimbel</a>
+                </div>
+                <div class="program-card fade-in" style="animation-delay: 0.1s;">
+                    <span class="program-icon">🌍</span>
+                    <h3 class="program-title">English Course</h3>
+                    <p class="program-desc">Conversation, Grammar, TOEFL/IELTS Prep. Belajar bahasa Inggris dengan percaya diri.</p>
+                    <a href="#register" class="btn btn-outline nav-trigger" data-target="register" style="padding:10px 20px; font-size:0.9rem;">Daftar Kursus</a>
+                </div>
+                <div class="program-card fade-in" style="animation-delay: 0.2s;">
+                    <span class="program-icon">🏆</span>
+                    <h3 class="program-title">Private Class</h3>
+                    <p class="program-desc">Kelas privat 1-on-1 dengan jadwal fleksibel dan kurikulum yang disesuaikan personal.</p>
+                    <a href="#register" class="btn btn-outline nav-trigger" data-target="register" style="padding:10px 20px; font-size:0.9rem;">Daftar Privat</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: REGISTER -->
+    <section id="register">
+        <div class="container">
+            <div class="form-container fade-in">
+                <div class="text-center" style="margin-bottom: 30px;">
+                    <h2 style="font-size:2rem; margin-bottom:10px;">Daftar Sekarang</h2>
+                    <p style="color:var(--gray);">Isi form di bawah, otomatis terhubung ke WhatsApp kami</p>
+                </div>
+                
+                <form id="regForm" onsubmit="return sendToWA(event)">
+                    <div class="form-group">
+                        <label class="form-label">Nama Lengkap / Nama Anak</label>
+                        <input type="text" id="nama" class="form-input" placeholder="Contoh: Budi Santoso" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jenjang / Kelas</label>
+                        <select id="jenjang" class="form-select" required>
+                            <option value="" disabled selected>Pilih Jenjang</option>
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA">SMA</option>
+                            <option value="Mahasiswa/Umum">Mahasiswa / Umum</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Program yang Diminati</label>
+                        <select id="program" class="form-select" required>
+                            <option value="" disabled selected>Pilih Program</option>
+                            <option value="Bimbel Reguler">Bimbel Reguler</option>
+                            <option value="English Course">English Course</option>
+                            <option value="Private Class">Private Class</option>
+                            <option value="TOEFL/IELTS Prep">TOEFL / IELTS Prep</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Pesan Tambahan (Opsional)</label>
+                        <input type="text" id="pesan" class="form-input" placeholder="Contoh: Ingin mulai bulan depan">
+                    </div>
+                    <button type="submit" class="btn btn-wa" style="margin-top:10px;">
+                        📩 Kirim Pendaftaran via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING WA BUTTON (FITUR TANYA2) -->
+    <a href="https://wa.me/6285335913758?text=Halo%20Jagat%20Education,%20saya%20ingin%20bertanya%20tentang%20program%20kursus." 
+       target="_blank" 
+       class="float-wa" 
+       aria-label="Chat WhatsApp">
+        💬
+    </a>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-nav">
+        <a href="#home" class="nav-item active" data-target="home">
+            <span class="nav-icon">🏠</span>
+            <span>Beranda</span>
+        </a>
+        <a href="#programs" class="nav-item" data-target="programs">
+            <span class="nav-icon">📖</span>
+            <span>Program</span>
+        </a>
+        <a href="#register" class="nav-item" data-target="register">
+            <span class="nav-icon">✏️</span>
+            <span>Daftar</span>
+        </a>
+    </nav>
+
+    <script>
+        // --- SPA NAVIGATION & ACTIVE STATE ---
+        const navItems = document.querySelectorAll('.nav-item, .nav-link, .nav-trigger');
+        const sections = document.querySelectorAll('section');
+
+        function setActiveNav(targetId) {
+            // Update mobile nav
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.target === targetId);
+            });
+            // Update desktop nav
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.dataset.target === targetId);
+            });
+        }
+
+        // Intersection Observer untuk auto-highlight nav saat scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setActiveNav(entry.target.id);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Smooth scroll untuk semua trigger
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = item.dataset.target || item.getAttribute('href').replace('#','');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    setActiveNav(targetId);
+                }
+            });
+        });
+
+        // --- FORM TO WHATSAPP ---
+        function sendToWA(e) {
+            e.preventDefault();
+            
+            const nama = encodeURIComponent(document.getElementById('nama').value.trim());
+            const jenjang = encodeURIComponent(document.getElementById('jenjang').value);
+            const program = encodeURIComponent(document.getElementById('program').value);
+            const pesan = encodeURIComponent(document.getElementById('pesan').value.trim());
+            
+            const phone = "6285335913758";
+            
+            let text = `*PENDAFTARAN JAGAT EDUCATION CENTER*\n\n`;
+            text += `👤 *Nama:* ${nama}\n`;
+            text += `🎓 *Jenjang:* ${jenjang}\n`;
+            text += `📚 *Program:* ${program}\n`;
+            if (pesan) text += `💬 *Pesan:* ${pesan}\n`;
+            text += `\nMohon informasi selanjutnya. Terima kasih! 🙏`;
+            
+            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+            window.open(waUrl, '_blank');
+            
+            return false;
+        }
+
+        // --- FADE IN ANIMATION ON SCROLL ---
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            fadeObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
